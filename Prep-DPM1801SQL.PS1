@@ -144,7 +144,7 @@ Author - Dave Kawula
     Get-Disk | Where Number -NE "0" |  Set-Disk -IsReadOnly $False
     $Driveletter = get-wmiobject -class "Win32_Volume" -namespace "root\cimv2" | where-object {$_.Label -like "SQL*"}
     $SQLDrive = $Driveletter.DriveLetter
-
+    $SQLDrive
     Write-Output -InputObject "[$($VMName)]:: Mounting SQL ISO"
 
     $iso = Get-ChildItem -Path "$($SQLDrive)\en_sql_server_2016_standard_with_service_pack_1_x64_dvd_9540929.iso"  #CHANGE THIS!
@@ -156,7 +156,7 @@ Author - Dave Kawula
 
     Write-Output -InputObject "[$($VMName)]:: Mounting WS2016 ISO"
 
-    $iso = Get-ChildItem -Path "$($DPMDrive)\en_windows_server_2016_x64_dvd_9718492.iso"  #CHANGE THIS!
+    $iso = Get-ChildItem -Path "$($SQLDrive)\en_windows_server_2016_x64_dvd_9718492.iso"  #CHANGE THIS!
 
     Mount-DiskImage $iso.FullName
 
@@ -171,7 +171,7 @@ Author - Dave Kawula
     
      Write-Output -InputObject "[$($VMName)]:: Enable .Net Framework 3.5"
 
-     Dism.exe /Online /Enable-Feature /FeatureName:NetFx3 /All /Source:$setup1\sources\sxs
+     Dism.exe /Online /Enable-Feature /FeatureName:NetFx3 /All /Source:d:\sources\sxs
 
 }    
       
