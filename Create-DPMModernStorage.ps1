@@ -28,7 +28,7 @@ Get-StoragePool DPM* | Get-PhysicalDisk | Where MediaType -eq "Unspecified" |Set
 Get-StoragePool DPM* | Get-PhysicalDisk | Sort Size | FT FriendlyName, Size, MediaType, HealthStatus, OperationalStatus -AutoSize
 #Create Simple Storage Space Virtual Disk
 Write-Output -InputObject "[$($VMName)]:: Creating the Virtual Disk $($VD1)"
-New-VirtualDisk -StoragePoolFriendlyName $Pool1 -FriendlyName $VD1 -ResiliencySettingName Simple -UseMaximumSize -ProvisioningType Thin -MediaType HDD -Interleave 256KB -NumberOfColumns 1
+New-VirtualDisk -StoragePoolFriendlyName $Pool1 -FriendlyName $VD1 -ResiliencySettingName Simple -Size 1000GB -ProvisioningType Thin -MediaType HDD -Interleave 256KB -NumberOfColumns 1
 Get-VirtualDisk -FriendlyName $VD1 |Get-Disk | Initialize-Disk -PassThru |New-Partition -AssignDriveLetter -UseMaximumSize | Format-Volume -AllocationUnitSize 64KB -FileSystem ReFS -NewFileSystemLabel "DPM Modern Storage" -Confirm:$False
 } 
 }
