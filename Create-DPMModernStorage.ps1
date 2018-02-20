@@ -10,7 +10,7 @@ param
 $DomainCred = Get-Credential
 $Pool1 = "DPM Storage Pool"
 $VD1 = "Simple DPM vDisk01"
-$VMName = 'DPM01'
+#$VMName = 'DPM01'
 icm -VMName $VMName -Credential $DomainCred {
 $VMName
 Write-Output -InputObject "[$($VMName)]:: Defining the Variables"
