@@ -23,8 +23,9 @@ Get-PhysicalDisk | FT
 Get-StorageSubSystem | FT
 Write-Output -InputObject "[$($VMName)]:: Creating the Storage Pool"
 New-StoragePool -FriendlyName $Pool1 -StorageSubSystemFriendlyName "Windows Storage*" -PhysicalDisks (Get-PhysicalDisk -CanPool $True)
-Get-StoragePool $Pool1 | Get-PhysicalDisk | Sort Size | FT FriendlyName, Size, MediaType, HealthStatus, OperationalStatus -AutoSize
-Get-StoragePool $Pool1 | Get-PhysicalDisk | Where MediaType -eq "Unspecified" |Set-PhysicalDisk -MediaType HDD
+Get-StoragePool DPM* | Get-PhysicalDisk | Sort Size | FT FriendlyName, Size, MediaType, HealthStatus, OperationalStatus -AutoSize
+Get-StoragePool DPM* | Get-PhysicalDisk | Where MediaType -eq "Unspecified" |Set-PhysicalDisk -MediaType HDD
+Get-StoragePool DPM* | Get-PhysicalDisk | Sort Size | FT FriendlyName, Size, MediaType, HealthStatus, OperationalStatus -AutoSize
 #Create Simple Storage Space Virtual Disk
 Write-Output -InputObject "[$($VMName)]:: Creating the Virtual Disk $($VD1)"
 New-VirtualDisk -StoragePoolFriendlyName $Pool1 -FriendlyName $VD1 -ResiliencySettingName Simple -UseMaximumSize -ProvisioningType Thin -MediaType HDD -Interleave 256KB -NumberOfColumns 1
